@@ -85,29 +85,43 @@ Visit `http://127.0.0.1:8000/showform` to allow users to check their loyalty tok
 
 Here’s an overview of the project structure:
 
-```
-loyalty-token-system/
+```loyalty-token-system/
+├── NexaCell/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
 ├── admin_panel/
 │   ├── migrations/
 │   ├── templates/
 │   │   ├── showform.html
-│   │   ├── getscore.html
+│   │   └── getscore.html
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
 │   ├── models.py
-│   ├── views.py
+│   ├── tests.py
 │   ├── urls.py
-│   └── admin.py
+│   └── views.py
 ├── static/
 │   ├── icons/
 │   │   ├── mtn-logo.png
 │   │   ├── favicon.ico
 │   │   └── phone-icon.png
-│   └── styles/
+│   └── css/
 │       └── form.css
 ├── templates/
 │   └── base.html
+├── venv/
+│   ├── bin/
+│   ├── include/
+│   ├── lib/
+│   └── ...
 ├── manage.py
 ├── requirements.txt
 └── README.md
+
 ```
 
 - **`admin_panel`**: Core app for managing users, transactions, and phone numbers.
