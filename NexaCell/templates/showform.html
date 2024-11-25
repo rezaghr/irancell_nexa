@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بررسی توکن‌های شما</title>
     {% load static %}
+    <link rel="icon" href="{% static 'icons/mtn-logo.png' %}" type="image/x-icon">
     <style>
         /* تنظیمات کلی بدنه */
         body {
@@ -133,7 +134,7 @@
         <div class="logo-container">
             <img src="{% static 'icons/mtn-logo.png' %}" alt="لوگوی ایرانسل" class="logo">
         </div>
-        <form action="/admin_panel/getform/" method="POST" class="styled-form">
+        <form action="{% url 'admin_panel:getscore' %}" method="POST" class="styled-form">
             {% csrf_token %}
             <h1>بررسی توکن‌های وفاداری شما</h1>
             <p class="description">شماره تماس خود را در زیر وارد کنید تا تعداد توکن‌های وفاداری شما نمایش داده شود.</p>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>نتیجه بررسی توکن‌ها</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'icons/mtn-logo.png' %}" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F5F5F5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #000000;
+            direction: rtl;
+        }
+
+        .result-container {
+            background-color: #FFFFFF;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        .logo {
+            max-width: 100px;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #FFCC00;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1rem;
+            color: #666666;
+            margin-bottom: 20px;
+        }
+
+        .result {
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .error {
+            font-size: 1rem;
+            color: red;
+            margin-top: 20px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #FFFFFF;
+            background-color: #FFCC00;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #E6B800;
+            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <div class="logo-container">
+            <img src="{% static 'icons/mtn-logo.png' %}" alt="لوگوی ایرانسل" class="logo">
+        </div>
+        {% if error %}
+            <h1>خطا</h1>
+            <p class="error">{{ error }}</p>
+        {% else %}
+            <h1>نتیجه بررسی</h1>
+            <p class="description">شماره: {{ phone_number }}</p>
+            <p class="result">کاربر: {{ user_name }}</p>
+            <p class="result">تعداد توکن‌های وفاداری: {{ loyalty_tokens }}</p>
+        {% endif %}
+        <a href="{% url 'admin_panel:showform' %}" class="back-button">بازگشت</a>
+    </div>
+</body>
+</html>
