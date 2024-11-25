@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بررسی توکن‌های شما</title>
+    {% load static %}
+    <style>
+        /* تنظیمات کلی بدنه */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F5F5F5; /* رنگ پس‌زمینه خاکستری روشن */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #000000;
+            direction: rtl; /* جهت راست به چپ */
+        }
+
+        /* جعبه فرم */
+        .form-container {
+            background-color: #FFFFFF; /* سفید برای ظاهری مدرن */
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* سایه نرم برای عمق */
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* استایل لوگو */
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        .logo {
+            max-width: 100px;
+            height: auto;
+        }
+
+        /* عنوان فرم */
+        .styled-form h1 {
+            font-size: 1.8rem;
+            color: #FFCC00; /* زرد ایرانسل */
+            margin-bottom: 10px;
+        }
+
+        /* توضیحات */
+        .description {
+            font-size: 1rem;
+            color: #666666; /* رنگ متن خنثی */
+            margin-bottom: 20px;
+        }
+
+        /* گروه فرم */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right; /* متن راست‌چین */
+        }
+
+        /* استایل برچسب */
+        .form-group label {
+            font-size: 1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        /* استایل آیکون */
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px; /* فاصله در سمت چپ برای راست‌چین */
+        }
+
+        /* فیلد ورودی */
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #CCCCCC; /* حاشیه خاکستری روشن */
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: #FFCC00; /* زرد ایرانسل هنگام فوکوس */
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 204, 0, 0.5); /* جلوه ملایم */
+        }
+
+        /* دکمه ارسال */
+        .submit-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #FFFFFF;
+            background-color: #FFCC00; /* زرد ایرانسل */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #E6B800; /* زرد تیره‌تر هنگام هاور */
+            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5); /* سایه هاور */
+        }
+
+        /* واکنش‌گرا برای موبایل */
+        @media (max-width: 500px) {
+            .form-container {
+                padding: 15px 20px;
+            }
+
+            .styled-form h1 {
+                font-size: 1.5rem;
+            }
+
+            input[type="text"], .submit-button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="logo-container">
+            <img src="{% static 'icons/mtn-logo.png' %}" alt="لوگوی ایرانسل" class="logo">
+        </div>
+        <form action="/admin_panel/getform/" method="POST" class="styled-form">
+            {% csrf_token %}
+            <h1>بررسی توکن‌های وفاداری شما</h1>
+            <p class="description">شماره تماس خود را در زیر وارد کنید تا تعداد توکن‌های وفاداری شما نمایش داده شود.</p>
+            <div class="form-group">
+                <label for="phone_number">
+                    <img src="{% static 'icons/phone-icon.png' %}" alt="آیکون تلفن" class="icon">
+                    شماره تماس:
+                </label>
+                <input type="text" id="phone_number" name="phone_number" placeholder="09123456789" required>
+            </div>
+            <button type="submit" class="submit-button">بررسی توکن‌ها</button>
+        </form>
+    </div>
+</body>
+</html>

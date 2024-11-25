@@ -1,0 +1,119 @@
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F5F5F5; /* Light gray background for contrast */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #000000;
+}
+
+/* Form Container */
+.form-container {
+    background-color: #FFFFFF; /* White for a clean, modern look */
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Logo Styling */
+.logo-container {
+    margin-bottom: 20px;
+}
+.logo {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Form Title */
+.styled-form h1 {
+    font-size: 1.8rem;
+    color: #FFCC00; /* MTN Yellow */
+    margin-bottom: 10px;
+}
+
+/* Description */
+.description {
+    font-size: 1rem;
+    color: #666666; /* Neutral text color */
+    margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Label Styling */
+.form-group label {
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+/* Icon Styling */
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* Input Field */
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #CCCCCC; /* Light gray border */
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+    border-color: #FFCC00; /* MTN Yellow for focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5); /* Subtle glow */
+}
+
+/* Submit Button */
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #FFCC00; /* MTN Yellow */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #E6B800; /* Darker yellow on hover */
+    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5); /* Subtle hover shadow */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 500px) {
+    .form-container {
+        padding: 15px 20px;
+    }
+
+    .styled-form h1 {
+        font-size: 1.5rem;
+    }
+
+    input[type="text"], .submit-button {
+        font-size: 0.9rem;
+    }
+}

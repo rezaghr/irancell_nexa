@@ -6,10 +6,20 @@ class User(models.Model):
     in_app_transaction = models.PositiveIntegerField()
     bought_pakage_amount = models.PositiveIntegerField()
     shop_transaction = models.PositiveIntegerField()
+    loyalty_tokens = models.PositiveIntegerField(default=0)
+    
+    def calculate_loyalty_tokens(self):
+        total = self.in_app_transaction + self.bought_pakage_amount + self.shop_transaction 
+        return total // 100  # 1 token for every 100 in total
 
+    def save(self, *args, **kwargs):
+        # Calculate and store loyalty tokens before saving
+        self.loyalty_tokens = self.calculate_loyalty_tokens()
+        super().save(*args, **kwargs)
+        
     def __str__(self):
-        return self.name
-
+            return self.name
+        
 class PhoneNumber(models.Model):
     id = models.AutoField(primary_key=True)  # Explicit primary key
     user = models.ForeignKey(

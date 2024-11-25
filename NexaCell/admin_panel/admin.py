@@ -18,10 +18,11 @@ class UserAdmin(admin.ModelAdmin):
         'in_app_transaction',
         'bought_pakage_amount',
         'shop_transaction',
+        'loyalty_tokens',
     )
-    list_filter = ('bought_pakage_amount', 'shop_transaction')  # Add filters for specific fields
+    # list_filter = ('loyalty_tokens',)  # Add filters for specific fields
     search_fields = ('name',)  # Enable search functionality for the 'name' field
-
+    ordering = ('-loyalty_tokens',)
     # Add inlines to manage phone numbers directly within the User admin
     inlines = [PhoneNumberInline]
 
@@ -29,10 +30,10 @@ class UserAdmin(admin.ModelAdmin):
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         # Define help texts for fields
         help_texts = {
-            'name': 'Full name of the user.',
-            'in_app_transaction': 'Total number of transactions made within the app.',
-            'bought_pakage_amount': 'Amount spent by the user on purchased packages.',
-            'shop_transaction': 'Total number of transactions made at physical or online shops.',
+            'name': 'نام و نام خانوادگی',
+            'in_app_transaction': 'حجم پرداختی های درون برنامه ای',
+            'bought_pakage_amount': 'حجم پرداختی پکیج های خریداری شده',
+            'shop_transaction': 'مبلغ خریداری شده از فروشگاه',
         }
         if db_field.name in help_texts:
             kwargs['help_text'] = help_texts[db_field.name]
@@ -43,8 +44,12 @@ class UserAdmin(admin.ModelAdmin):
         return obj.phone_numbers.count()
 
     # Rename the column in the admin panel for better clarity
-    number_of_phone_numbers.short_description = 'Phone Numbers'
-
+    number_of_phone_numbers.short_description = 'شماره تماس'
+    
+    # Method to calculate the total transactions for display in the admin panel
+    def total_transactions(self, obj):
+        return obj.in_app_transaction + obj.bought_pakage_amount + obj.shop_transaction
+    total_transactions.short_description = 'Total Transactions'
 
 # Register the models with the admin panel
 admin.site.register(User, UserAdmin)
