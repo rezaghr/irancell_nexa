@@ -22,8 +22,8 @@ Follow these steps to set up the project on your local machine:
 ### 1. Clone the Repository
 First, clone this repository to your local machine:
 ```bash
-git clone https://github.com/your-repository/loyalty-token-system.git
-cd loyalty-token-system
+git clone https://github.com/rezaghr/irancell_nexa.git
+cd irancell_nexa
 ```
 
 ### 2. Create a Python Virtual Environment
