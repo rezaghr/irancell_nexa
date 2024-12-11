@@ -10,23 +10,23 @@
         /* تنظیمات کلی بدنه */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #F5F5F5; /* رنگ پس‌زمینه خاکستری روشن */
+            background-color: #F9FAFB; /* رنگ پس‌زمینه مدرن‌تر */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #000000;
+            color: #333333;
             direction: rtl; /* جهت راست به چپ */
         }
 
         /* جعبه فرم */
         .form-container {
             background-color: #FFFFFF; /* سفید برای ظاهری مدرن */
-            padding: 20px 30px;
-            border-radius: 10px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* سایه نرم برای عمق */
+            padding: 25px 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* سایه نرم برای عمق */
             width: 100%;
             max-width: 400px;
             text-align: center;
@@ -43,16 +43,17 @@
 
         /* عنوان فرم */
         .styled-form h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #FFCC00; /* زرد ایرانسل */
             margin-bottom: 10px;
+            font-weight: bold;
         }
 
         /* توضیحات */
         .description {
             font-size: 1rem;
             color: #666666; /* رنگ متن خنثی */
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         /* گروه فرم */
@@ -81,60 +82,116 @@
         /* فیلد ورودی */
         input[type="text"] {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #CCCCCC; /* حاشیه خاکستری روشن */
-            border-radius: 5px;
+            padding: 15px;
+            border: 1px solid #DDDDDD; /* حاشیه خاکستری ملایم */
+            border-radius: 8px;
             font-size: 1rem;
             box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         input[type="text"]:focus {
             border-color: #FFCC00; /* زرد ایرانسل هنگام فوکوس */
+            box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
             outline: none;
-            box-shadow: 0 0 5px rgba(255, 204, 0, 0.5); /* جلوه ملایم */
         }
 
-        /* دکمه ارسال */
-        .submit-button {
+        /* دکمه‌ها */
+        .submit-button, .otp-button {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             font-size: 1rem;
             font-weight: bold;
             color: #FFFFFF;
             background-color: #FFCC00; /* زرد ایرانسل */
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.3);
         }
 
-        .submit-button:hover {
+        .submit-button:hover, .otp-button:hover {
             background-color: #E6B800; /* زرد تیره‌تر هنگام هاور */
-            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5); /* سایه هاور */
+            box-shadow: 0 6px 14px rgba(255, 204, 0, 0.4);
+        }
+
+        .timer {
+            font-size: 0.9rem;
+            color: #888888;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none; /* Hide element by default */
         }
 
         /* واکنش‌گرا برای موبایل */
         @media (max-width: 500px) {
             .form-container {
-                padding: 15px 20px;
+                padding: 20px 25px;
             }
 
             .styled-form h1 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
 
-            input[type="text"], .submit-button {
+            input[type="text"], .submit-button, .otp-button {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+
+            .description {
                 font-size: 0.9rem;
             }
         }
     </style>
+    <script>
+        let timerInterval;
+        let timeLeft = 60;
+
+        function showOTPInput() {
+            const phoneNumber = document.getElementById("phone_number").value;
+            if (!phoneNumber) {
+                alert("لطفاً شماره تلفن خود را وارد کنید.");
+                return;
+            }
+            document.getElementById("otp-section").classList.remove("hidden");
+            document.getElementById("otp-button").disabled = true;
+            startTimer();
+        }
+
+        function startTimer() {
+            timeLeft = 60; // Reset timer
+            document.getElementById("timer").textContent = `زمان باقی‌مانده: ${timeLeft} ثانیه`;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft > 0) {
+                    document.getElementById("timer").textContent = `زمان باقی‌مانده: ${timeLeft} ثانیه`;
+                } else {
+                    clearInterval(timerInterval);
+                    document.getElementById("timer").textContent = "کد دریافت نشد؟";
+                }
+            }, 1000);
+        }
+
+        function verifyOTP(event) {
+            event.preventDefault();
+            const otp = document.getElementById("otp").value;
+            if (otp === "12345") {
+                document.getElementById("mainForm").submit();
+            } else {
+                alert("کد وارد شده اشتباه است. لطفاً دوباره تلاش کنید.");
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="form-container">
         <div class="logo-container">
             <img src="{% static 'icons/mtn-logo.png' %}" alt="لوگوی ایرانسل" class="logo">
         </div>
-        <form action="{% url 'admin_panel:getscore' %}" method="POST" class="styled-form">
+        <form action="{% url 'admin_panel:getscore' %}" method="POST" class="styled-form" id="mainForm">
             {% csrf_token %}
             <h1>بررسی توکن‌های وفاداری شما</h1>
             <p class="description">شماره تماس خود را در زیر وارد کنید تا تعداد توکن‌های وفاداری شما نمایش داده شود.</p>
@@ -145,7 +202,15 @@
                 </label>
                 <input type="text" id="phone_number" name="phone_number" placeholder="09123456789" required>
             </div>
-            <button type="submit" class="submit-button">بررسی توکن‌ها</button>
+            <button type="button" class="otp-button" id="otp-button" onclick="showOTPInput()">دریافت کد تایید</button>
+
+            <div id="otp-section" class="hidden">
+                <div class="form-group">
+                    <input type="text" id="otp" name="otp" placeholder="12345">
+                </div>
+                <p id="timer" class="timer"></p>
+                <button type="button" class="submit-button" onclick="verifyOTP(event)">بررسی توکن‌ها</button>
+            </div>
         </form>
     </div>
 </body>
