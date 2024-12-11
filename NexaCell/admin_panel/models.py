@@ -6,8 +6,9 @@ class User(models.Model):
     in_app_transaction = models.PositiveIntegerField()
     bought_pakage_amount = models.PositiveIntegerField()
     shop_transaction = models.PositiveIntegerField()
+    social_number = models.PositiveIntegerField(default=22)
+
     loyalty_tokens = models.PositiveIntegerField(default=0)
-    
     def calculate_loyalty_tokens(self):
         total = self.in_app_transaction + self.bought_pakage_amount + self.shop_transaction 
         return total // 100  # 1 token for every 100 in total

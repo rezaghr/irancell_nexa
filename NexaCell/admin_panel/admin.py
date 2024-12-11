@@ -13,6 +13,7 @@ class PhoneNumberInline(admin.TabularInline):
 class UserAdmin(admin.ModelAdmin):
     # Customize the display of fields in the admin panel
     list_display = (
+        'social_number',
         'name',
         'number_of_phone_numbers',
         'in_app_transaction',
@@ -30,6 +31,7 @@ class UserAdmin(admin.ModelAdmin):
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         # Define help texts for fields
         help_texts = {
+            'social_number': 'کد ملی',
             'name': 'نام و نام خانوادگی',
             'in_app_transaction': 'حجم پرداختی های درون برنامه ای',
             'bought_pakage_amount': 'حجم پرداختی پکیج های خریداری شده',

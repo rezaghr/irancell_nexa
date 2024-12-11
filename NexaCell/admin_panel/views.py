@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from admin_panel.models import PhoneNumber
+from admin_panel.models import PhoneNumber, User
 
 def showform(request): 
     return render(request, "showform.html") 
@@ -17,12 +17,17 @@ def getscore(request):
             # Get the associated user's loyalty tokens
             user = phone_number_obj.user
             loyalty_tokens = user.loyalty_tokens
+
+            # Find the user with the most loyalty tokens
+            top_user = User.objects.order_by('-loyalty_tokens').first()
+            is_top_user = user == top_user
             
             # Pass data to the template
             context = {
                 'phone_number': phone_number,
                 'user_name': user.name,
                 'loyalty_tokens': loyalty_tokens,
+                'is_top_user': is_top_user,
                 'error': None
             }
         except PhoneNumber.DoesNotExist:
@@ -31,6 +36,7 @@ def getscore(request):
                 'phone_number': phone_number,
                 'user_name': None,
                 'loyalty_tokens': None,
+                'is_top_user': False,
                 'error': f"شماره {phone_number} یافت نشد."
             }
     else:
@@ -39,7 +45,15 @@ def getscore(request):
             'phone_number': None,
             'user_name': None,
             'loyalty_tokens': None,
+            'is_top_user': False,
             'error': "فقط درخواست‌های POST پذیرفته می‌شوند."
         }
 
     return render(request, 'showscore.html', context)
+
+def top_users(request):
+    # Fetch the top 10 users based on loyalty tokens
+    top_users = User.objects.order_by('-loyalty_tokens')[:10]
+    print(top_users)
+    # Render the data in a template
+    return render(request, 'top_users.html', {'top_users': top_users})
