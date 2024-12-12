@@ -16,7 +16,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            /* height: 100vh; */
             color: #000000;
             direction: rtl;
         }
@@ -57,6 +57,17 @@
             margin: 10px 0;
         }
 
+        .image-container {
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
         .error {
             font-size: 1rem;
             color: red;
@@ -68,8 +79,12 @@
         }
 
         .special-user img {
-            max-width: 100px;
+            max-width: 150px;
+            height: auto;
             border-radius: 50%;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .back-button {
@@ -106,12 +121,18 @@
             <p class="description">شماره: {{ phone_number }}</p>
             <p class="result">کاربر: {{ user_name }}</p>
             <p class="result">تعداد توکن‌های وفاداری: {{ loyalty_tokens }}</p>
+            <p class="result">کد اجتماعی: {{ social_number }}</p>
+            <p class="result">رتبه: {{ rank }}</p>
+
             {% if is_top_user %}
             <div class="special-user">
                 <h2>کاربر برتر</h2>
-                <img src="{% static 'icons/top-user.jpg' %}" alt="کاربر برتر">
+                <img src="{% static 'images/top-user.jpg' %}" alt="کاربر برتر">
             </div>
             {% endif %}
+            <div class="image-container">
+                <img src="{% static 'images/user-default.jpg' %}" alt="تصویر پیش‌فرض کاربر">
+            </div>
         {% endif %}
         <a href="{% url 'admin_panel:showform' %}" class="back-button">بازگشت</a>
     </div>
